@@ -1,6 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sophie_messenger_app/config/app_events.dart';
-import 'package:sophie_messenger_app/config/app_states.dart';
 import 'package:sophie_messenger_app/handlers/localization_handler.dart';
 import 'package:sophie_messenger_app/handlers/shared_handler.dart';
 import 'package:sophie_messenger_app/routers/navigator.dart';

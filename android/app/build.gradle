@@ -66,6 +66,14 @@ flutter {
     source '../..'
 }
 
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
+android {
+    defaultConfig {
+        multiDexEnabled true
+        minSdkVersion 21
+    }
+}
+apply plugin: 'com.google.gms.google-services'

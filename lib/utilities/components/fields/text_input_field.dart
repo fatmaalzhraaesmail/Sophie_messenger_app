@@ -35,7 +35,7 @@ class _TextInputFieldState extends State<TextInputField> {
     }else if(widget.keyboardType == TextInputType.emailAddress){
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-        child: drawSvgIcon("email_outlined",iconColor: Colors.grey),
+        // child: drawSvgIcon("email_outlined",iconColor: Colors.grey),
       );
     } 
     else if (widget.keyboardType == TextInputType.phone) {
@@ -57,7 +57,7 @@ class _TextInputFieldState extends State<TextInputField> {
               shape: BoxShape.circle,
               color: Colors.grey,
               image: DecorationImage(
-                image: AssetImage("assets/images/saudi.png"),
+                image: AssetImage("assets/images/splash.png"),
                 fit: BoxFit.contain,
               ),
             ),
@@ -67,7 +67,7 @@ class _TextInputFieldState extends State<TextInputField> {
     } else if (widget.keyboardType == TextInputType.visiblePassword) {
       return GestureDetector(
         child: Padding(padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-          child: drawSvgIcon(showText ? "eye_hide" : "eye_show",iconColor: Colors.grey),
+          child: drawSvgIcon(showText ? "password" : "show_password",iconColor: Colors.grey,height: 20,width: 20),
         ),
         onTap: () {
           setState(() {
@@ -97,7 +97,7 @@ class _TextInputFieldState extends State<TextInputField> {
           ),
         if (widget.labelText != null) const SizedBox(height: 8),
         SizedBox(
-          height: 52,
+          height: 45,
           child: TextFormField(
             
             controller: widget.controller,
@@ -117,7 +117,7 @@ class _TextInputFieldState extends State<TextInputField> {
               
               hintText: widget.hintText,
               hintStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.grey),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16,vertical: 24),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 16,vertical: 14),
               suffixIcon: widget.suffixIcon ?? _mapSuffixIcon(),
               enabledBorder: _mapBorder(borderColor: value == null ? Colors.transparent : Colors.transparent),
               focusedBorder: _mapBorder(borderColor: Theme.of(context).colorScheme.primary),
@@ -137,7 +137,7 @@ class _TextInputFieldState extends State<TextInputField> {
               Text(widget.errorText ?? "Error", style: const TextStyle(color: Colors.red)),
             ],
           ),
-        if (widget.withBottomPadding) const SizedBox(height: 8),
+        if (widget.withBottomPadding) const SizedBox(height: 7),
       ],
     );
   }

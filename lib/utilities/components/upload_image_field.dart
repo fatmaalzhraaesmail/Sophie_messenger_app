@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:sophie_messenger_app/base/blocs/theme_bloc.dart';
 import 'package:sophie_messenger_app/handlers/icon_handler.dart';
 import '../../handlers/file_picker_handler.dart';
-import '../theme/colors/colors.dart';
 import '../theme/media.dart';
 import '../theme/text_styles.dart';
 import 'custom_btn.dart';

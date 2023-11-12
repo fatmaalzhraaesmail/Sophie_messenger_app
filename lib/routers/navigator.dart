@@ -1,11 +1,23 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sophie_messenger_app/handlers/qr_code_scanner/qr_scanner_view.dart';
 import 'package:sophie_messenger_app/routers/routers.dart';
+import 'package:sophie_messenger_app/services/continue_setup/pages/contiue_setup.dart';
 import 'package:sophie_messenger_app/services/home/pages/home_page.dart';
+import 'package:sophie_messenger_app/services/login/pages/login_screen.dart';
+import 'package:sophie_messenger_app/services/message/pages/Screens/Calls/pages/calls.dart';
+import 'package:sophie_messenger_app/services/message/pages/Screens/Groups/pages/groups.dart';
+import 'package:sophie_messenger_app/services/message/pages/Screens/Messages/pages/message_screen.dart';
+import 'package:sophie_messenger_app/services/navigation/pages/Navigation.dart';
 import 'package:sophie_messenger_app/services/register/pages/register_screen.dart';
+import 'package:sophie_messenger_app/services/settings/pages/settings.dart';
 import 'package:sophie_messenger_app/services/splash/blocs/splash_bloc.dart';
+import 'package:sophie_messenger_app/services/verification/pages/Phone_number.dart';
+import 'package:sophie_messenger_app/services/verification/pages/email_verification_page.dart';
+import 'package:sophie_messenger_app/services/verification/pages/verification_page.dart';
 
+import '../services/message/pages/messageNavigator.dart';
 import '../services/splash/pages/splash_page.dart';
 
 const begin = Offset(0.0, 1.0);
@@ -34,7 +46,7 @@ class CustomNavigator {
   static Route<dynamic> onCreateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.login:
-        return _pageRoute(const SizedBox());
+        return _pageRoute(LoginScreen());
       case Routes.register:
         return _pageRoute(RegisterScreen());
       case Routes.splash:
@@ -43,6 +55,26 @@ class CustomNavigator {
         return _pageRoute(const QrCodeScannerView());
       case Routes.home:
         return _pageRoute(const HomePage());
+      case Routes.continue_setup:
+        return _pageRoute(ContinueSetup());
+      case Routes.phone:
+        return _pageRoute(Phone());
+      case Routes.verfication:
+        return _pageRoute(VerificationScreen());
+      case Routes.emailverification:
+        return _pageRoute(EmailVerificationPage());
+      case Routes.navigation:
+        return _pageRoute(NavigationScreen());
+      case Routes.messageNavigator:
+        return _pageRoute(MessageNavigatorScreen());
+      case Routes.settinsg:
+        return _pageRoute(SettingsScreen());
+      case Routes.message:
+        return _pageRoute(MessageScreen());
+      case Routes.groups:
+        return _pageRoute(GroupsScreen());
+      case Routes.calls:
+        return _pageRoute(CallsScreen());
     }
     return MaterialPageRoute(builder: (_) => Container());
   }

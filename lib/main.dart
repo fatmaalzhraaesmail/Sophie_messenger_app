@@ -1,8 +1,8 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hexcolor/hexcolor.dart';
-
 import 'package:sophie_messenger_app/base/blocs/lang_bloc.dart';
 import 'package:sophie_messenger_app/base/blocs/theme_bloc.dart';
 import 'package:sophie_messenger_app/handlers/shared_handler.dart';
@@ -12,16 +12,30 @@ import 'package:sophie_messenger_app/routers/routers.dart';
 import 'package:sophie_messenger_app/utilities/theme/colors/colors.dart';
 import 'package:sophie_messenger_app/utilities/theme/colors/light_theme.dart';
 import 'package:sophie_messenger_app/utilities/theme/text_styles.dart';
-
 import 'handlers/localization_handler.dart';
+import 'dart:io';
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await SharedHandler.init();
   NetworkHandler.init();
+  ByteData data =
+      await PlatformAssetBundle().load('assets/lets-encrypt-r3.pem');
+  SecurityContext.defaultContext
+      .setTrustedCertificatesBytes(data.buffer.asUint8List());
+
+  HttpOverrides.global = MyHttpOverrides();
   runApp(MyApp());
-
-
 }
 
 class MyApp extends StatelessWidget {
@@ -42,12 +56,14 @@ class MyApp extends StatelessWidget {
               ColorsTheme theme = themeBloc.theme.valueOrNull ?? LightTheme();
               SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
                 statusBarColor: Colors.transparent,
-                statusBarIconBrightness: Brightness.dark,
-                systemNavigationBarColor: Colors.transparent,
-                systemNavigationBarIconBrightness: Brightness.dark,
+                statusBarIconBrightness: Brightness.light,
+                systemNavigationBarColor: Colors.white,
+                systemNavigationBarIconBrightness: Brightness.light,
+
               ));
               return MaterialApp(
                 title: 'Project Title',
+                
                 theme: ThemeData(
                     pageTransitionsTheme: const PageTransitionsTheme(
                       builders: {
@@ -56,23 +72,47 @@ class MyApp extends StatelessWidget {
                         TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
                       },
                     ),
+                  
                     textTheme: TextTheme(
                       bodyText1: TextStyle(
                         color: Colors.black,
                       ),
                     ),
-                    appBarTheme: AppBarTheme(
-                      centerTitle: true,
-                      backgroundColor: HexColor("56cfca"),
-             
-                      elevation: 0.0,
-                      iconTheme: IconThemeData(color: Colors.black,size: 26,),
-                      actionsIconTheme: IconThemeData(color: Colors.black,size: 26,),
-                      titleTextStyle: AppTextStyles.w700.copyWith(fontSize: 20)
+                    
+                    bottomAppBarTheme: BottomAppBarTheme(
+                      color: HexColor('f7f7f7'),
+                      height: 40,
 
-                     
                     ),
-                   
+                    
+                    
+                    
+                    appBarTheme: AppBarTheme(
+                      
+                        
+                        // backwardsCompatibility: false,
+                        systemOverlayStyle: SystemUiOverlayStyle(
+                          // statusBarColor: AppTextStyles.maincolor,
+                          statusBarIconBrightness: Brightness.light,
+                          
+                        ),
+                        
+                        centerTitle: true,
+                        
+
+                        backgroundColor: HexColor("56cfca"),
+                        elevation: 0.0,
+                        iconTheme: IconThemeData(
+                          color: Colors.white,
+                          size: 26,
+                        ),
+                        actionsIconTheme: IconThemeData(
+                          color: Colors.white,
+                          size: 26,
+                        ),
+                        
+                        titleTextStyle:
+                            AppTextStyles.appBar.copyWith(fontSize: 24)),
                     colorScheme: ColorScheme(
                       primary: theme.primary,
                       onBackground: theme.background,
@@ -91,6 +131,7 @@ class MyApp extends StatelessWidget {
                     scaffoldBackgroundColor: Colors.white,
                     backgroundColor: Colors.white),
                 debugShowCheckedModeBanner: false,
+                
                 initialRoute: Routes.splash,
                 navigatorKey: CustomNavigator.navigatorState,
                 navigatorObservers: [CustomNavigator.routeObserver],
@@ -107,15 +148,13 @@ class MyApp extends StatelessWidget {
                   GlobalWidgetsLocalizations.delegate,
                   GlobalCupertinoLocalizations.delegate,
                 ],
-
-             localeResolutionCallback: (currentLang, supportedLangs) {
+                localeResolutionCallback: (currentLang, supportedLangs) {
                   // String? savedLgnCode = pref!.getString("lgnCode");
                   if (currentLang != null) {
                     for (Locale locale in supportedLangs) {
-                      if (locale.languageCode == currentLang.languageCode)
-                       {
-                         return locale;
-                       }
+                      if (locale.languageCode == currentLang.languageCode) {
+                        return locale;
+                      }
                     }
                   }
                   return supportedLangs.first;
@@ -128,4 +167,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
