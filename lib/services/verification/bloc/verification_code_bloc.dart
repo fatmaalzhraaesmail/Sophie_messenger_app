@@ -107,7 +107,7 @@ class VerifictionCodeBloc extends Cubit<verificationState> with Validations {
         this.verificationId = verificationId;
         SharedHandler.instance!.setData("very", value: verificationId);
         print("verificationId: $verificationId");
-        // await verifyPhoneNumber(verificationId, codeController.text);
+       await verifyPhoneNumber(verificationId, codeController.text);
       },
       codeAutoRetrievalTimeout: (String verificationId) {
         // ...
@@ -125,7 +125,7 @@ class VerifictionCodeBloc extends Cubit<verificationState> with Validations {
       Map<String, dynamic> data = {
         "code": codeController.text,
       };
-      ;
+      
 
       print("code: ${codeController.text}");
       print("smsCode: ${codeController.text}");
@@ -145,42 +145,43 @@ class VerifictionCodeBloc extends Cubit<verificationState> with Validations {
       print('Phone number verification failed: $e');
     }
   }
-
-  Future<void> sendVerificationCodeee() async {
-    try {
-      // bool validate() {
-      //   codeError = isValidCode(codeController.text);
-      //   codeIsValid = codeError.isEmpty;
-      //   return codeIsValid;
-      // }
-      var user = FirebaseAuth.instance.currentUser;
-      if (user != null) {
-        var userEmail = user.email;
-        print(userEmail);
-        EmailOTP myauth = EmailOTP();
-        await myauth.setConfig(
-            appEmail: 'fatmaalzhraazedan@gmail.com',
-            appName: 'Sophie App',
-            otpLength: 4,
-            userEmail: 'fatmaalzhraazedan@gmail.com',
-            otpType: OTPType.digitsOnly);
-        print("Wait");
-        if (await myauth.sendOTP() == true) {
-          print("send suceesfully");
-          // myauth.verifyOTP(otp: 8264);
-          emit(verificationSuccess(
-              errorMessege: 'Verification code send successfully'));
-        } else {
-          print("send Failura");
-          emit(verificationFailure(errorMessege: 'Failed send Otp'));
-        }
-      }
-    } catch (e, stackTrace) {
-      print("Failed to send OTP: $e");
-      print(stackTrace);
-    }
-  }
 }
+
+//   Future<void> sendVerificationCodeee() async {
+//     try {
+//       // bool validate() {
+//       //   codeError = isValidCode(codeController.text);
+//       //   codeIsValid = codeError.isEmpty;
+//       //   return codeIsValid;
+//       // }
+//       var user = FirebaseAuth.instance.currentUser;
+//       if (user != null) {
+//         var userEmail = user.email;
+//         print(userEmail);
+//         EmailOTP myauth = EmailOTP();
+//         await myauth.setConfig(
+//             appEmail: 'fatmaalzhraazedan@gmail.com',
+//             appName: 'Sophie App',
+//             otpLength: 4,
+//             userEmail: 'fatmaalzhraazedan@gmail.com',
+//             otpType: OTPType.digitsOnly);
+//         print("Wait");
+//         if (await myauth.sendOTP() == true) {
+//           print("send suceesfully");
+//           // myauth.verifyOTP(otp: 8264);
+//           emit(verificationSuccess(
+//               errorMessege: 'Verification code send successfully'));
+//         } else {
+//           print("send Failura");
+//           emit(verificationFailure(errorMessege: 'Failed send Otp'));
+//         }
+//       }
+//     } catch (e, stackTrace) {
+//       print("Failed to send OTP: $e");
+//       print(stackTrace);
+//     }
+//   }
+// }
 
 
 // class VerifictionCodeBloc extends Cubit<verificationState> with Validations {

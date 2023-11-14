@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sophie_messenger_app/services/verification/bloc/verification_code_bloc.dart';
-import 'package:sophie_messenger_app/services/verification/bloc/verification_state.dart';
-import 'package:sophie_messenger_app/utilities/components/custom_btn.dart';
 import '../../../utilities/components/custom_page_body.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

@@ -57,7 +57,9 @@ abstract class AppTextStyles {
   /// - color: black `(default)`
   static const TextStyle w900 =
       TextStyle(fontWeight: FontWeight.w900, color: Colors.black);
-  static Color maincolor = HexColor("#56cfca");
+  static Color maincolor = HexColor("#2cb9b0");
+  // 56cfca
+  
   static TextStyle appBar =TextStyle(fontWeight: FontWeight.w700, color: Colors.white, fontSize: 16);
    static TextStyle unread = TextStyle(
     fontWeight: FontWeight.w700,

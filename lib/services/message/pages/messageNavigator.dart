@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sophie_messenger_app/services/message/pages/Screens/Calls/pages/calls.dart';
 import 'package:sophie_messenger_app/services/message/pages/Screens/Groups/pages/groups.dart';
+import 'package:sophie_messenger_app/services/message/pages/Screens/Messages/bloc/messages/chat_cubit.dart';
 import 'package:sophie_messenger_app/services/message/pages/Screens/Messages/pages/message_screen.dart';
 import 'package:sophie_messenger_app/utilities/theme/text_styles.dart';
 
@@ -15,8 +16,15 @@ class MessageNavigatorScreen extends StatefulWidget {
 class _MessageNavigatorScreenState extends State<MessageNavigatorScreen> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MessageNavigationCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => MessageNavigationCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ChatCubit(),
+        ),
+      ],
       child: BlocConsumer<MessageNavigationCubit, MessageNavigationState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -44,7 +52,6 @@ class _MessageNavigatorScreenState extends State<MessageNavigatorScreen> {
                     overlayColor: MaterialStatePropertyAll(Colors.transparent),
                     tabs: <Tab>[
                       Tab(
-                        
                         child: Row(
                           children: [
                             Text("Message", style: AppTextStyles.w400),

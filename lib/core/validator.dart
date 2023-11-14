@@ -40,8 +40,8 @@ mixin Validations {
   String isValidCode(String code) {
     if (code.isEmpty) {
       return "Please Enter The Code";
-    } else if (code.length != 4) {
-      return "Code should be Exactly 4 Digits";
+    } else if (code.length != 6) {
+      return "Code should be Exactly 6 Digits";
     }
     return "";
   }

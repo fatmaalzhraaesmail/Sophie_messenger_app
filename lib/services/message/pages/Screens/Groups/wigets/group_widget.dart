@@ -16,7 +16,8 @@ class _GroupsWidgetState extends State<GroupsWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaHelper.width,
+                    width:double.infinity,
+
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(4),

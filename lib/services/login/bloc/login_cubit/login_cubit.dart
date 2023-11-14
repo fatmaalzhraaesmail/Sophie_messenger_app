@@ -48,15 +48,17 @@ class LoginCubit extends Cubit<LoginState> with Validations {
                 email: emailcontroller.text, password: passwordcontroller.text);
         SharedHandler.instance!.setData(SharedKeys().user, value: data);
         SharedHandler.instance!.setData(SharedKeys().isLogin, value: true);
-      
-        CustomNavigator.push(Routes.home);
+        SharedHandler.instance!
+            .setData(SharedKeys().userEmail, value: emailcontroller.text);
+        CustomNavigator.push(
+          Routes.navigation,
+        );
         emit(LoginSuccess());
       }
     } on FirebaseAuthException catch (ex) {
       if (ex.code == 'user-not-found') {
         emit(LoginFailure(errorMessage: 'user-not-found'));
       } else if (ex.code == 'wrong-password') {
-        
         emit(LoginFailure(errorMessage: 'wrong-password'));
       }
     } catch (e) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:sophie_messenger_app/services/message/pages/Screens/Messages/bloc/messages/chat_cubit.dart';
 import 'package:sophie_messenger_app/services/message/pages/Screens/Messages/bloc/messages/messages_cubit.dart';
 import 'package:sophie_messenger_app/services/message/pages/Screens/Messages/bloc/status/status_cubit.dart';
 import 'package:sophie_messenger_app/services/message/pages/Screens/Messages/widgets/message_widget.dart';
@@ -20,6 +21,9 @@ class MessageScreen extends StatelessWidget {
         BlocProvider(
           create: (context) => MessagesCubit(),
         ),
+        BlocProvider(
+          create: (context) => ChatCubit(),
+        ),
       ],
       child: Scaffold(
         body: SafeArea(
@@ -27,7 +31,7 @@ class MessageScreen extends StatelessWidget {
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Container(
-              width: MediaHelper.width,
+              width:double.infinity,
               height: MediaHelper.height,
               child: Column(
                 children: [
@@ -40,6 +44,8 @@ class MessageScreen extends StatelessWidget {
                       var bloc = context.read<StatusCubit>();
                       return Container(
                         height: 75,
+
+
                         width: double.infinity,
                         margin: EdgeInsets.only(top: 8, bottom: 2, left: 15),
                         child: Row(
@@ -92,27 +98,8 @@ class MessageScreen extends StatelessWidget {
                                     physics: BouncingScrollPhysics(),
                                     itemBuilder: (context, index) {
                                       
-                                        return Slidable(
-                                           endActionPane: ActionPane(
-                                          motion: const BehindMotion(),
-                                          
-                                          extentRatio: .2,
-                                          children: [
-                                           
-                                            SlidableAction(
-                                              onPressed: (context) {},
-
-                                              icon: Icons.delete_outlined,
-
-
-                                              backgroundColor: Colors.red,
-                                              foregroundColor:
-                                                  Colors.white,
-                                            )
-                                          ]),
-                                          child: MessageWidget(context,
-                                              bloc.Messagescollection[index ],),
-                                        );
+                                        return MessageWidget(context,
+                                            bloc.Messagescollection[index ],);
                                       
                                     },
                                     separatorBuilder: (context, index) {
