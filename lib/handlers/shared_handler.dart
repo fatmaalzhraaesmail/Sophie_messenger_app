@@ -9,6 +9,7 @@ class SharedKeys {
   String rememberMe = "REMEMBER_ME";
   String lang = "LANG";
   String theme = "THEME";
+  String userEmail = "userEmail";
 }
 
 enum ValueType { int, string, bool, double, map }

@@ -32,26 +32,28 @@ class PhoneCubit extends Cubit<PhoneState> with Validations {
     emit(PhoneSuccess());
 
     try {
-      if (validate()) {
-        Map<String, dynamic> data = {
-          "phone": PhoneNumberController.text,
-        };
-        print("Phone Add Sucessfully");
-        DocumentReference userRef = FirebaseFirestore.instance
-            .collection('users')
-            .doc(FirebaseAuth.instance.currentUser!.uid.toString());
-        userRef.update({"phone": PhoneNumberController.text}).then((value) {
-          print("Field updated successfully");
-          // SendVerificationCode();
+      Map<String, dynamic> data = {
+        "phone": PhoneNumberController.text,
+      };
+      print("Phone Add Sucessfully");
+      var phonee = codeContrryController.text + PhoneNumberController.text;
+      DocumentReference userRef = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid.toString());
+      await userRef.update({"phone": phonee}).then((value) {
+        print("Field updated successfully");
+        //  SendVerificationCode();
 
-          CustomNavigator.push(Routes.verfication);
-        }).catchError((error) {
-          print("Failed to update field: $error");
-        });
+       CustomNavigator.push(Routes.verfication);
+      }).catchError((error) {
+        print("failled to add phone");
+        print("Failed to update field: $error");
+      });
 
-        emit(PhoneSuccess());
-      }
+      emit(PhoneSuccess());
     } on FirebaseAuthException catch (ex) {
+             CustomNavigator.push(Routes.verfication);
+
       print("something went Wrong");
     }
   }

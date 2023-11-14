@@ -93,11 +93,11 @@ class _ContinueSetupState extends State<ContinueSetup> {
                     buttonColor: AppTextStyles.maincolor,
                     height: 48,
                     onTap: () async {
-                      // bloc.chooseGender(index: bloc.selectedIndex);
+                     bloc.chooseGender(index: bloc.selectedIndex);
                       print(bloc.selectedIndex);
-                      CustomNavigator.push(Routes.phone);   //will remove
+                       CustomNavigator.push(Routes.phone);   //will remove
 
-                      //  await bloc.emailverification.sendVerificationCodeee();
+                      // await bloc.emailverification.sendVerificationCodeee();
                     },
                     radius: 18,
                   ),

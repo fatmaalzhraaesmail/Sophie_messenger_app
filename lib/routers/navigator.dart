@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sophie_messenger_app/handlers/qr_code_scanner/qr_scanner_view.dart';
 import 'package:sophie_messenger_app/routers/routers.dart';
 import 'package:sophie_messenger_app/services/continue_setup/pages/contiue_setup.dart';
@@ -8,11 +6,11 @@ import 'package:sophie_messenger_app/services/home/pages/home_page.dart';
 import 'package:sophie_messenger_app/services/login/pages/login_screen.dart';
 import 'package:sophie_messenger_app/services/message/pages/Screens/Calls/pages/calls.dart';
 import 'package:sophie_messenger_app/services/message/pages/Screens/Groups/pages/groups.dart';
+import 'package:sophie_messenger_app/services/message/pages/Screens/Messages/pages/chat.dart';
 import 'package:sophie_messenger_app/services/message/pages/Screens/Messages/pages/message_screen.dart';
 import 'package:sophie_messenger_app/services/navigation/pages/Navigation.dart';
 import 'package:sophie_messenger_app/services/register/pages/register_screen.dart';
 import 'package:sophie_messenger_app/services/settings/pages/settings.dart';
-import 'package:sophie_messenger_app/services/splash/blocs/splash_bloc.dart';
 import 'package:sophie_messenger_app/services/verification/pages/Phone_number.dart';
 import 'package:sophie_messenger_app/services/verification/pages/email_verification_page.dart';
 import 'package:sophie_messenger_app/services/verification/pages/verification_page.dart';
@@ -75,6 +73,8 @@ class CustomNavigator {
         return _pageRoute(GroupsScreen());
       case Routes.calls:
         return _pageRoute(CallsScreen());
+      case Routes.chatpersons:
+        return _pageRoute(ChatScreen());
     }
     return MaterialPageRoute(builder: (_) => Container());
   }

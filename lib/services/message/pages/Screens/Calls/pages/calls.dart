@@ -28,7 +28,8 @@ class _CallsScreenState extends State<CallsScreen> {
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Container(
-              width: MediaHelper.width,
+                            width:double.infinity,
+
               height: MediaHelper.height,
               child: Column(
                 children: [

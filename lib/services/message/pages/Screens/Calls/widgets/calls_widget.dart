@@ -23,7 +23,8 @@ class _CallsWidgetState extends State<CallsWidget> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 12, horizontal: 15),
-      width: MediaHelper.width,
+                    width:double.infinity,
+
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,

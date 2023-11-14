@@ -21,4 +21,5 @@ abstract class Routes {
   static const String messageNavigator = "messageNavigator";
   static const String groups = "groups";
   static const String calls = "calls";
+  static const String chatpersons = "chatpersons";
 }

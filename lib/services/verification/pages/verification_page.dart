@@ -128,7 +128,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       children: [
                         InkWell(
                           onTap: () {
-                            // bloc.verifyPhoneNumber(bloc.verificationId, bloc.smsCode);
+                            bloc.verifyPhoneNumber(bloc.verificationId, bloc.smsCode);
                           },
                           child: Text(
                             "Didn't Get Code? Resend",

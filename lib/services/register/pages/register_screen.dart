@@ -22,7 +22,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       create: (context) => RegisterCubit(),
       child: Scaffold(
         body: Container(
-          width: MediaHelper.width,
+          width: double.infinity,
           height: MediaHelper.height,
           decoration: BoxDecoration(
               image: DecorationImage(
@@ -68,7 +68,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               Expanded(
                 child: Container(
-                  width: MediaHelper.width,
+                  width: double.infinity,
+
                   decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
@@ -93,8 +94,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 10),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10),
                                     child: Text(
                                       "Signup",
                                       style: TextStyle(
@@ -104,7 +105,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                   TextInputField(
                                     hintText: 'User Name',
-                                     controller: bloc.namecontroller,
+                                    controller: bloc.namecontroller,
                                     keyboardType: TextInputType.name,
                                     hasError: !bloc.nameIsValid,
                                     errorText: bloc.nameError,
@@ -128,7 +129,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                   TextInputField(
                                     hintText: 'Password',
-                                     controller: bloc.passwordcontroller,
+                                    controller: bloc.passwordcontroller,
                                     keyboardType: TextInputType.visiblePassword,
                                     hasError: !bloc.passwordIsValid,
                                     errorText: bloc.passwordError,
@@ -140,7 +141,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                   TextInputField(
                                     hintText: 'Confirm Password',
-                                     controller: bloc.confirmPasswordcontroller,
+                                    controller: bloc.confirmPasswordcontroller,
                                     keyboardType: TextInputType.visiblePassword,
                                     hasError: !bloc.confirmPasswordIsValid,
                                     errorText: bloc.confirmPasswordError,
@@ -155,7 +156,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 11),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 11),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -169,7 +171,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     overlayColor: MaterialStatePropertyAll(
                                         HexColor('24bbb4')),
                                     fillColor: MaterialStatePropertyAll(
-                                        HexColor('#24bbb4')),
+                                       _rememberMe==false?Colors.white:HexColor('#24bbb4'),
+                                       ),
                                     side: BorderSide(
                                         style: BorderStyle.solid,
                                         color: HexColor('#24bbb4'),
@@ -208,8 +211,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 10),
                               child: CustomBtn(
-                                // onTap: () => bloc.click(),
-                                onTap: () => CustomNavigator.push(Routes.continue_setup), //will remove
+                                 onTap: () => bloc.click(),
+                                // onTap: () => CustomNavigator.push(
+                                //     Routes.continue_setup), //will remove
                                 radius: 18,
                                 textColor: Colors.white,
                                 height: 48,

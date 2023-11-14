@@ -29,7 +29,8 @@ class CustomBtn extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        width: width ?? MediaHelper.width,
+        width: width ??double.infinity,
+
         height: height ?? 56,
         decoration: BoxDecoration(
           color: buttonColor ?? themeBloc.theme.valueOrNull!.primary,

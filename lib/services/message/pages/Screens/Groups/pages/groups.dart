@@ -15,7 +15,8 @@ class GroupsScreen extends StatelessWidget {
       child: Scaffold(
         body: SafeArea(
           child: Container(
-            width: MediaHelper.width,
+                         width:double.infinity,
+
             height: MediaHelper.height,
             child: BlocConsumer<GroupCubit, GroupState>(
               listener: (context, state) {},

@@ -229,13 +229,13 @@ class _PhoneState extends State<Phone> {
                   buttonColor: AppTextStyles.maincolor,
                   height: 55,
                   onTap: () {
-                    // bloc.addPhone();
-                      // bloc.verificationCodeBloc.sendVerificationCode(
-                      //     PhoneNumber: bloc
-                      //         .PhoneNumberController.text,
-                      //     codecontry: bloc
-                      //         .codeContrryController.text);
-                       CustomNavigator.push(Routes.verfication);
+                    bloc.addPhone();
+                      bloc.verificationCodeBloc.sendVerificationCode(
+                          PhoneNumber: bloc
+                              .PhoneNumberController.text,
+                          codecontry: bloc
+                              .codeContrryController.text);
+                      //  CustomNavigator.push(Routes.verfication);
                   },
                   text: 'CONFIRM',
 
