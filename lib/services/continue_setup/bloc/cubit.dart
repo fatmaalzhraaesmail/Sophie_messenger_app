@@ -35,7 +35,7 @@ class ContinueSetupCubit extends Cubit<ContinueSetupState> {
       userRef.update({"gender": gender}).then((value) {
         print("Field updated successfully");
         //hint before phone
-        CustomNavigator.push(Routes.phone);
+        CustomNavigator.push(Routes.navigation);
         
       }).catchError((error) {
         print("Failed to update field: $error");

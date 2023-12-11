@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:sophie_messenger_app/services/message/pages/Screens/Messages/bloc/messages/chat_cubit.dart';
 import 'package:sophie_messenger_app/services/message/pages/Screens/Messages/bloc/messages/messages_cubit.dart';
 import 'package:sophie_messenger_app/services/message/pages/Screens/Messages/bloc/status/status_cubit.dart';
@@ -38,7 +37,6 @@ class MessageScreen extends StatelessWidget {
                 
                   BlocConsumer<StatusCubit, StatusState>(
                     listener: (context, state) {
-                      // TODO: implement listener
                     },
                     builder: (context, state) {
                       var bloc = context.read<StatusCubit>();
@@ -82,7 +80,6 @@ class MessageScreen extends StatelessWidget {
                   Expanded(
                     child: BlocConsumer<MessagesCubit, MessagesState>(
                       listener: (context, state) {
-                        // TODO: implement listener
                       },
                       builder: (context, state) {
                         var bloc = context.read<MessagesCubit>();
@@ -99,7 +96,7 @@ class MessageScreen extends StatelessWidget {
                                     itemBuilder: (context, index) {
                                       
                                         return MessageWidget(context,
-                                            bloc.Messagescollection[index ],);
+                                            bloc.Messagescollection[index],);
                                       
                                     },
                                     separatorBuilder: (context, index) {

@@ -26,19 +26,19 @@ abstract class AppTextStyles {
   /// - family: inter
   /// - color: black `(default)`
   static const TextStyle w400 =
-      TextStyle(fontWeight: FontWeight.w400, color: Colors.white,fontSize: 19);
+      TextStyle(fontWeight: FontWeight.w400, color: Colors.white, fontSize: 19);
 
   /// - weight: w500
   /// - family: inter
   /// - color: black `(default)`
   static const TextStyle w500 =
-      TextStyle(fontWeight: FontWeight.w500, color: Colors.white,fontSize: 18);
+      TextStyle(fontWeight: FontWeight.w500, color: Colors.white, fontSize: 18);
 
   /// - weight: w600
   /// - family: inter
   /// - color: black `(default)`
   static const TextStyle w600 =
-      TextStyle(fontWeight: FontWeight.w600, color: Colors.white,fontSize: 18);
+      TextStyle(fontWeight: FontWeight.w600, color: Colors.white, fontSize: 18);
 
   /// - weight: w700
   /// - family: inter
@@ -59,26 +59,26 @@ abstract class AppTextStyles {
       TextStyle(fontWeight: FontWeight.w900, color: Colors.black);
   static Color maincolor = HexColor("#2cb9b0");
   // 56cfca
-  
-  static TextStyle appBar =TextStyle(fontWeight: FontWeight.w700, color: Colors.white, fontSize: 16);
-   static TextStyle unread = TextStyle(
-    fontWeight: FontWeight.w700,
-    fontSize: 18,
-    color: Colors.black
-   );
-   static TextStyle read = TextStyle(
-    fontWeight: FontWeight.w500,
-    fontSize: 17,
-    color: Colors.black
-   );
-    static TextStyle readmessage = TextStyle(
+
+  static TextStyle appBar =
+      TextStyle(fontWeight: FontWeight.w700, color: Colors.white, fontSize: 16);
+  static TextStyle unread =
+      TextStyle(fontWeight: FontWeight.w700, fontSize: 18, color: Colors.black);
+  static TextStyle read =
+      TextStyle(fontWeight: FontWeight.w500, fontSize: 17, color: Colors.black);
+  static TextStyle readmessage = TextStyle(
     fontWeight: FontWeight.w500,
     fontSize: 15,
     color: Colors.grey.shade500,
-   );
-    static TextStyle unreadmessage = TextStyle(
+  );
+  static TextStyle unreadmessage = TextStyle(
     fontWeight: FontWeight.w700,
     fontSize: 15,
     color: Colors.black,
-   );
+  );
+  static TextStyle secondary = TextStyle(
+    fontSize: 16,
+    color: HexColor('#5496ff'),
+    fontWeight: FontWeight.bold,
+  );
 }
