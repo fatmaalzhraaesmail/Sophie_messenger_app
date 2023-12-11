@@ -31,8 +31,8 @@ class _MessageNavigatorScreenState extends State<MessageNavigatorScreen> {
           var cubit = context.read<MessageNavigationCubit>();
           var index = cubit.currentIndex;
           return DefaultTabController(
-            length: cubit.appBar.length,
-            initialIndex: index,
+            length: 3,
+            // initialIndex: index,
             child: Scaffold(
               appBar: AppBar(
                 centerTitle: false,
@@ -43,6 +43,7 @@ class _MessageNavigatorScreenState extends State<MessageNavigatorScreen> {
                 ),
                 bottom: TabBar(
                     indicatorWeight: 3,
+                    // dividerHeight: 5,
                     indicatorSize: TabBarIndicatorSize.tab,
                     indicatorPadding: EdgeInsets.symmetric(horizontal: 12),
                     labelPadding: EdgeInsets.symmetric(horizontal: 20),
@@ -50,16 +51,25 @@ class _MessageNavigatorScreenState extends State<MessageNavigatorScreen> {
                     physics: BouncingScrollPhysics(),
                     splashBorderRadius: BorderRadius.circular(1),
                     overlayColor: MaterialStatePropertyAll(Colors.transparent),
+                    indicatorColor: Colors.white,
+                    dividerColor: Colors.white,
+
+                    onTap: (value) {
+                      cubit.currentIndex = value;
+                      cubit.changeIndex(value);
+                      print(value);
+                    },
                     tabs: <Tab>[
                       Tab(
                         child: Row(
                           children: [
-                            Text("Message", style: AppTextStyles.w400),
+                            Text("Message", style: AppTextStyles.w400.copyWith(color: Colors.white),),
                             SizedBox(
                               width: 4,
                             ),
                             Icon(
                               Icons.circle,
+                              color: Colors.white,
                               size: 10,
                             ),
                           ],

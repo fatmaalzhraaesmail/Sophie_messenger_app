@@ -1,5 +1,6 @@
 // define _CRT_SECURE_NO_WARNINGS
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,6 +17,8 @@ import 'package:sophie_messenger_app/utilities/theme/colors/light_theme.dart';
 import 'package:sophie_messenger_app/utilities/theme/text_styles.dart';
 import 'handlers/localization_handler.dart';
 import 'dart:io';
+
+late String initialRoute;
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -37,6 +40,17 @@ void main() async {
       .setTrustedCertificatesBytes(data.buffer.asUint8List());
 
   HttpOverrides.global = MyHttpOverrides();
+  FirebaseAuth.instance.authStateChanges().listen((user) {
+    if (user == null) {
+      initialRoute = Routes.login;
+    } else if (user != null && user.emailVerified) {
+      print("true");
+      initialRoute = Routes.navigation;
+    } else {
+      print("cdmkdszlnfkhdsbj");
+      initialRoute = Routes.login;
+    }
+  });
   runApp(MyApp());
 }
 
@@ -61,11 +75,10 @@ class MyApp extends StatelessWidget {
                 statusBarIconBrightness: Brightness.light,
                 systemNavigationBarColor: Colors.white,
                 systemNavigationBarIconBrightness: Brightness.light,
-
               ));
               return MaterialApp(
                 title: 'Project Title',
-                
+
                 theme: ThemeData(
                     pageTransitionsTheme: const PageTransitionsTheme(
                       builders: {
@@ -74,35 +87,27 @@ class MyApp extends StatelessWidget {
                         TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
                       },
                     ),
-                  
                     textTheme: TextTheme(
                       bodyText1: TextStyle(
                         color: Colors.black,
                       ),
                     ),
-                    
+                    primaryTextTheme: TextTheme(
+                      bodyText1: TextStyle(color: Colors.black),
+                    ),
                     bottomAppBarTheme: BottomAppBarTheme(
                       color: HexColor('f7f7f7'),
                       height: 40,
-
                     ),
-                    
-                    
-                    
                     appBarTheme: AppBarTheme(
-                      
-                        
+
                         // backwardsCompatibility: false,
                         systemOverlayStyle: SystemUiOverlayStyle(
                           // statusBarColor: AppTextStyles.maincolor,
                           statusBarIconBrightness: Brightness.light,
-                          
                         ),
-                        
                         centerTitle: true,
-                        
-
-                        backgroundColor: HexColor("56cfca"),
+                        backgroundColor: AppTextStyles.maincolor,
                         elevation: 0.0,
                         iconTheme: IconThemeData(
                           color: Colors.white,
@@ -112,7 +117,6 @@ class MyApp extends StatelessWidget {
                           color: Colors.white,
                           size: 26,
                         ),
-                        
                         titleTextStyle:
                             AppTextStyles.appBar.copyWith(fontSize: 24)),
                     colorScheme: ColorScheme(
@@ -133,8 +137,8 @@ class MyApp extends StatelessWidget {
                     scaffoldBackgroundColor: Colors.white,
                     backgroundColor: Colors.white),
                 debugShowCheckedModeBanner: false,
-                
-                initialRoute: Routes.splash,
+
+                initialRoute: initialRoute,
                 navigatorKey: CustomNavigator.navigatorState,
                 navigatorObservers: [CustomNavigator.routeObserver],
                 scaffoldMessengerKey: CustomNavigator.scaffoldState,

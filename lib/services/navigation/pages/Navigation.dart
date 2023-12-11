@@ -71,24 +71,11 @@ class NavigationScreen extends StatelessWidget {
                   onTap: (index) {
                     cubit.changeIndex(index);
                   },
-                  // height: 50,
-                  // items: const <Widget>[
-                  //   Icon(CupertinoIcons.home, size: 30, color: Colors.white),
-                  //   Icon(CupertinoIcons.bell, size: 30, color: Colors.white),
-                  //   Icon(CupertinoIcons.chat_bubble_fill,
-                  //       size: 30, color: Colors.white),
-                  //   Icon(CupertinoIcons.person, size: 30, color: Colors.white),
-                  // ],
-                  // color: textColor,
-                  // buttonBackgroundColor: textColor,
-                  // backgroundColor: background,
-                  // animationCurve: Curves.easeIn,
-                  // animationDuration: const Duration(milliseconds: 400),
-                  // onTap: (index) {
-                  //   cubit.changeIndex(index);
-                  // },
+                 
                 ),
+                
               ),
+              
             );
           }),
     );

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sophie_messenger_app/utilities/theme/colors/colors.dart';
-import 'package:sophie_messenger_app/utilities/theme/media.dart';
 import 'package:sophie_messenger_app/utilities/theme/text_styles.dart';
 
 import '../../base/blocs/theme_bloc.dart';
@@ -15,6 +13,7 @@ class CustomBtn extends StatelessWidget {
     this.buttonColor,
     this.textColor,
     this.onTap,
+    this.border
   });
 
   final double? height;
@@ -24,6 +23,7 @@ class CustomBtn extends StatelessWidget {
   final Color? buttonColor;
   final Color? textColor;
   final Function()? onTap;
+  final BoxBorder? border;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -35,6 +35,7 @@ class CustomBtn extends StatelessWidget {
         decoration: BoxDecoration(
           color: buttonColor ?? themeBloc.theme.valueOrNull!.primary,
           borderRadius: BorderRadius.circular(radius ?? 8),
+          border: border
         ),
         child: Center(
           child: Text(

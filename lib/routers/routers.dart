@@ -1,5 +1,5 @@
 abstract class Routes {
-  static const String home = "home";
+  static const String myProfile = "myProfile";
   static const String login = "login";
   static const String register = "register";
   static const String resetPassword = "resetPassword";
@@ -22,4 +22,5 @@ abstract class Routes {
   static const String groups = "groups";
   static const String calls = "calls";
   static const String chatpersons = "chatpersons";
+  static const String otp = "otp";
 }

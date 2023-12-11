@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:sophie_messenger_app/utilities/theme/media.dart';
 
 class SnackbarComponent {
@@ -7,9 +8,11 @@ class SnackbarComponent {
     final snackBar = SnackBar(
       content: Text(message),
       duration: Duration(seconds: 5),
-      backgroundColor: Colors.amber,
+      backgroundColor:  HexColor('#5496ff'),
       width: MediaHelper.width,
       behavior: SnackBarBehavior.floating,
+
+
       
     );
 

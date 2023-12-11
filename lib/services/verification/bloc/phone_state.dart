@@ -3,6 +3,9 @@ class PhoneInitialState extends PhoneState {}
 class PhoneSuccess extends PhoneState {
  
 }
+class PhoneLoading extends PhoneState {
+ 
+}
 
 class PhoneFailure extends PhoneState {
    String errorMessege;

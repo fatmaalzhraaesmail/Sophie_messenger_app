@@ -4,8 +4,9 @@ class UserModel {
   String? gender;
   String? phone;
   String? image;
+  bool? isVerified;
 
-  UserModel({this.name, this.email, this.gender, this.phone,this.image});
+  UserModel({this.name, this.email, this.gender, this.phone,this.image,this.isVerified});
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
@@ -14,6 +15,7 @@ class UserModel {
       gender: json['gender'],
       phone: json['phone'],
       image: json['image'], 
+      isVerified: json['isVerified'], 
     );
   }
 
@@ -22,6 +24,7 @@ class UserModel {
         "email": email,
         "gender": gender,
         "phone": phone,
-        "image":image
+        "image":image,
+        "isVerified":isVerified,
       };
 }

@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sophie_messenger_app/routers/navigator.dart';
 import 'package:sophie_messenger_app/routers/routers.dart';
 import 'package:sophie_messenger_app/services/verification/bloc/phon_cubit.dart';
+import 'package:sophie_messenger_app/services/verification/bloc/phone_state.dart';
 import 'package:sophie_messenger_app/services/verification/bloc/verification_code_bloc.dart';
 import 'package:sophie_messenger_app/services/verification/bloc/verification_state.dart';
 import 'package:sophie_messenger_app/utilities/components/custom_btn.dart';
 import 'package:sophie_messenger_app/utilities/components/fields/pin_code_field.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sophie_messenger_app/utilities/theme/text_styles.dart';
-
 
 class VerificationScreen extends StatefulWidget {
   const VerificationScreen({super.key});
@@ -70,7 +70,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: PinCodeField(
                         codeLength: 6,
-                        
+
                         //
                         onChanged: (value) {
                           bloc.codeController.text = value;
@@ -80,27 +80,27 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     );
                   },
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      children: [
-                        CircularProgressIndicator(
-                          color: HexColor('#0977fe'),
-                          backgroundColor: Colors.grey[300],
-                          strokeWidth: 3,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "Wating Code",
-                          style: AppTextStyles.w600,
-                        )
-                      ],
-                    ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     Column(
+                //       children: [
+                //         CircularProgressIndicator(
+                //           color: HexColor('#0977fe'),
+                //           backgroundColor: Colors.grey[300],
+                //           strokeWidth: 3,
+                //         ),
+                //         SizedBox(
+                //           height: 10,
+                //         ),
+                //         Text(
+                //           "Wating Code",
+                //           style: AppTextStyles.w600,
+                //         )
+                //       ],
+                //     ),
+                //   ],
+                // ),
                 Spacer(),
                 BlocBuilder<VerifictionCodeBloc, verificationState>(
                   builder: (context, state) {
@@ -109,9 +109,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       text: 'Verify',
                       buttonColor: AppTextStyles.maincolor,
                       onTap: () {
-                        CustomNavigator.push(Routes.login); //will remove
-                        // bloc.verifyPhoneNumber(
-                        //     bloc.verificationId, bloc.codeController.text);
+                        // CustomNavigator.push(Routes.login); //will remove
+                        bloc.verifyPhoneNumber(
+                            bloc.verificationId, bloc.codeController.text);
                       },
                     );
                   },
@@ -128,7 +128,13 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       children: [
                         InkWell(
                           onTap: () {
-                            bloc.verifyPhoneNumber(bloc.verificationId, bloc.smsCode);
+                             bloc.verifyPhoneNumber(bloc.verificationId, bloc.smsCode);
+                            // bloc.resendVerificationCode();
+                            // print(bloc.PhoneNumberController.text);
+                            // print( bloc.codeContrryController.text);
+                            // bloc.verificationCodeBloc.sendVerificationCode(
+                            //     PhoneNumber: bloc.PhoneNumberController.text,
+                            //     codecontry: bloc.codeContrryController.text);
                           },
                           child: Text(
                             "Didn't Get Code? Resend",

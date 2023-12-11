@@ -7,7 +7,6 @@ import 'package:sophie_messenger_app/routers/routers.dart';
 import 'package:sophie_messenger_app/services/message/pages/Screens/Messages/bloc/messages/chat_cubit.dart';
 import 'package:sophie_messenger_app/services/message/pages/Screens/Messages/bloc/messages/chat_state.dart';
 import 'package:sophie_messenger_app/services/message/pages/Screens/Messages/model/messages_model.dart';
-import 'package:sophie_messenger_app/services/message/pages/Screens/Messages/pages/chat.dart';
 
 import '../../../../../../utilities/theme/text_styles.dart';
 import '../model/status_model.dart';
@@ -135,21 +134,29 @@ class _MessageWidgetState extends State<MessageWidget> {
                                         "You Missed a Video call",
                                         style: TextStyle(color: Colors.red),
                                       )
-                                    : Text(
-                                        widget
-                                            .messagescollection.messgaes!.last,
-                                        style:
-                                            widget.messagescollection.isSeen ==
-                                                    true
-                                                ? AppTextStyles.readmessage
-                                                    .copyWith(
-                                                        overflow: TextOverflow
-                                                            .ellipsis)
-                                                : AppTextStyles.unreadmessage
-                                                    .copyWith(
-                                                        overflow: TextOverflow
-                                                            .ellipsis),
-                                      )
+                                    : Container(
+                                      width: 200,
+                                      child: Text(
+                                          widget
+                                              .messagescollection.messgaes!.last,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                          style:
+                                              widget.messagescollection.isSeen ==
+                                                      true
+                                                  ? AppTextStyles.readmessage
+                                                      .copyWith(
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                              
+                                                              )
+                                                             
+                                                  : AppTextStyles.unreadmessage
+                                                      .copyWith(
+                                                          overflow: TextOverflow
+                                                              .ellipsis),
+                                        ),
+                                    )
                           ],
                         ),
                       ],
@@ -200,12 +207,12 @@ class _MessageWidgetState extends State<MessageWidget> {
                           ],
                         ),
                         SizedBox(
-                          width: 10,
+                          width: 6,
                         ),
                         Column(
                           // crossAxisAlignment: CrossAxisAlignment.start,
                           // mainAxisAlignment: MainAxisAlignment.start,
-                          children: [Text("3m ago")],
+                          children: [Text("3m ago",style: TextStyle(color: Colors.black),)],
                         )
                       ],
                     )

@@ -19,9 +19,10 @@ class CardGender extends StatelessWidget {
         bool isSelected = index == bloc.selectedIndex;
         return Expanded(
           child: Card(
-            elevation: isSelected?4:0.5,
-            shadowColor: Colors.grey.shade300,
+            elevation: isSelected?3:0.5,
+           shadowColor: Colors.grey.shade300,
             color: isSelected?Colors.white:Colors.grey[100],
+            surfaceTintColor: isSelected?Colors.white:Colors.grey[100],
             child: InkWell(
               onTap: () {
                bloc.selectCard(index);
@@ -38,10 +39,14 @@ class CardGender extends StatelessWidget {
                     ),
                     drawSvgIconColored(
                       iconSvg,
-                      width: 50,
-                      height: 50,
+                      width: 60,
+                      height: 60,
                     ),
-                    Text(label),
+                    Text(label,style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold
+                    ),),
                   ],
                 ),
               ),

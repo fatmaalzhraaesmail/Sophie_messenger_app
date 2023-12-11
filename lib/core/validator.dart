@@ -20,9 +20,11 @@ mixin Validations {
 
   String isValidPhone(String phone) {
     //RegExp(r"^(?:[+0]9)?[0-9]{9}$").hasMatch(phone) &&
+    // r"^(?:\+|0)[0-9]{9,}$",
     if (phone.isEmpty) {
       return "Please Enter Your Phone Number";
-    } else if (phone.length < 11) {
+    } else if (RegExp(r"^(?:[+0]9)?[0-9]{9}$").hasMatch(phone)) {
+      print('validate');
       return "Please Enter Phone Number Contain 11 Digits";
     }
     return "";
