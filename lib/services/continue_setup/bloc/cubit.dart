@@ -4,16 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sophie_messenger_app/routers/navigator.dart';
 import 'package:sophie_messenger_app/routers/routers.dart';
 import 'package:sophie_messenger_app/services/continue_setup/bloc/state.dart';
-import 'package:sophie_messenger_app/services/verification/bloc/email_verification_cubit.dart';
-
 enum Gender { Male, Female }
-
 class ContinueSetupCubit extends Cubit<ContinueSetupState> {
-  ContinueSetupCubit(this.emailverification)
+  ContinueSetupCubit()
       : super(ContinueSetupIntialState());
   static ContinueSetupCubit get(context) => BlocProvider.of(context);
   int selectedIndex = 0;
-  EmailVerificationCubit emailverification=EmailVerificationCubit();
 
   void selectCard(int index) {
     selectedIndex = index;
@@ -43,7 +39,7 @@ class ContinueSetupCubit extends Cubit<ContinueSetupState> {
 
       emit(ContinueSetupSelectedGenderSuccessState());
     } on FirebaseAuthException catch (ex) {
-      print("something went Wrong");
+      print("something went Wrong $ex");
     }
   }
 }

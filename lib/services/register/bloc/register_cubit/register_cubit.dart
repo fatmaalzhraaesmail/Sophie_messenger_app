@@ -80,7 +80,7 @@ class RegisterCubit extends Cubit<RegisterState> with Validations {
 
     confirmPasswordError = isValidConfirmPassword(
 
-        passwordcontroller.text, confirmPasswordcontroller.text);
+    passwordcontroller.text, confirmPasswordcontroller.text);
 
     nameIsValid = nameError.isEmpty;
 
@@ -116,15 +116,15 @@ class RegisterCubit extends Cubit<RegisterState> with Validations {
 
       if (validate() && agreeCondition == true) {
 
-        Map<String, dynamic> data = {
+        // Map<String, dynamic> data = {
 
-          "name": namecontroller.text,
+        //   "name": namecontroller.text,
 
-          "email": emailcontroller.text,
+        //   "email": emailcontroller.text,
 
-          "password": passwordcontroller.text,
+        //   "password": passwordcontroller.text,
 
-        };
+        // };
 
         emit(LoginLoading());
 

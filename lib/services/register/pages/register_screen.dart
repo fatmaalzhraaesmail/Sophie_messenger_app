@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:sophie_messenger_app/base/blocs/social_auth/bloc/cubit/socialauth_cubit.dart';
+import 'package:sophie_messenger_app/base/blocs/social_auth/bloc/cubit/socialauth_state.dart';
+import 'package:sophie_messenger_app/handlers/icon_handler.dart';
 import 'package:sophie_messenger_app/routers/navigator.dart';
 import 'package:sophie_messenger_app/routers/routers.dart';
 import 'package:sophie_messenger_app/services/register/bloc/register_cubit/register_cubit.dart';
 import 'package:sophie_messenger_app/utilities/components/custom_btn.dart';
+import 'package:sophie_messenger_app/utilities/components/custom_social_button.dart';
 import 'package:sophie_messenger_app/utilities/components/fields/text_input_field.dart';
 import 'package:sophie_messenger_app/utilities/components/snakbar.dart';
 import 'package:sophie_messenger_app/utilities/theme/media.dart';
@@ -21,8 +25,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => RegisterCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => RegisterCubit(),
+        ),
+        BlocProvider(
+          create: (context) => SocialauthCubit(),
+        ),
+      ],
       child: Scaffold(
         body: Container(
           width: double.infinity,
@@ -79,7 +90,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 Expanded(
-                  flex: 6,
+                  flex: 8,
                   child: BlocConsumer<RegisterCubit, RegisterState>(
                     listener: (context, state) {
                       if (state is LoginLoading) {
@@ -87,7 +98,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       } else if (state is LoginFailure) {
                         SnackbarComponent.showSnackbar(
                             context, state.errorMessage);
-                      } 
+                      }
                     },
                     builder: (context, state) {
                       var bloc = context.read<RegisterCubit>();
@@ -266,6 +277,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   buttonColor: Colors.white,
                                 ),
                               ),
+
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: BlocConsumer<SocialauthCubit,
+                                    SocialauthState>(
+                                  listener: (context, state) {},
+                                  builder: (context, state) {
+                                    var social =
+                                        context.read<SocialauthCubit>();
+
+                                    return CustomBtnSocial(
+                                      onTap: () {
+                                        social.signUpWithFacebook();
+                                      },
+                                      height: 48,
+                                      radius: 18,
+                                      buttonColor: Colors.white,
+                                      SocialIcon: drawSvgIconColored('facebook',
+                                          width: 20, height: 20),
+                                      text: 'Continue with Facebook',
+                                      textColor: Colors.black,
+                                      borderColor: HexColor('#D7D7D7'),
+                                    );
+                                  },
+                                ),
+                              )
                             ],
                           ),
                         ),

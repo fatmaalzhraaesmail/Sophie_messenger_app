@@ -3,11 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sophie_messenger_app/services/continue_setup/bloc/cubit.dart';
 import 'package:sophie_messenger_app/services/continue_setup/bloc/state.dart';
 import 'package:sophie_messenger_app/services/continue_setup/widget/gender_widget.dart';
-import 'package:sophie_messenger_app/services/verification/bloc/email_verification_cubit.dart';
-import 'package:sophie_messenger_app/services/verification/bloc/verification_code_bloc.dart';
 import 'package:sophie_messenger_app/utilities/components/custom_btn.dart';
 import 'package:sophie_messenger_app/utilities/theme/text_styles.dart';
-
 class ContinueSetup extends StatefulWidget {
   const ContinueSetup({super.key});
 
@@ -21,14 +18,9 @@ class _ContinueSetupState extends State<ContinueSetup> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => ContinueSetupCubit(EmailVerificationCubit()),
+          create: (context) => ContinueSetupCubit(),
         ),
-        BlocProvider(
-          create: (context) => EmailVerificationCubit(),
-        ),
-        BlocProvider(
-          create: (context) => VerifictionCodeBloc(),
-        ),
+
       ],
       child: Scaffold(
         body: SafeArea(

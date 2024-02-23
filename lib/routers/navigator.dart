@@ -1,7 +1,5 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sophie_messenger_app/handlers/qr_code_scanner/qr_scanner_view.dart';
 import 'package:sophie_messenger_app/routers/routers.dart';
 import 'package:sophie_messenger_app/services/continue_setup/pages/contiue_setup.dart';
@@ -14,11 +12,8 @@ import 'package:sophie_messenger_app/services/message/pages/Screens/Messages/pag
 import 'package:sophie_messenger_app/services/navigation/pages/Navigation.dart';
 import 'package:sophie_messenger_app/services/register/pages/register_screen.dart';
 import 'package:sophie_messenger_app/services/settings/pages/settings.dart';
-import 'package:sophie_messenger_app/services/verification/bloc/phone_auth/phone_auth_cubit.dart';
 import 'package:sophie_messenger_app/services/verification/pages/Phone_number.dart';
-import 'package:sophie_messenger_app/services/verification/pages/email_verification_page.dart';
 import 'package:sophie_messenger_app/services/verification/pages/otp_screen.dart';
-import 'package:sophie_messenger_app/services/verification/pages/verification_page.dart';
 
 import '../services/message/pages/messageNavigator.dart';
 import '../services/splash/pages/splash_page.dart';
@@ -62,10 +57,7 @@ class CustomNavigator {
         return _pageRoute(ContinueSetup());
       case Routes.phone:
         return _pageRoute(Phone());
-      case Routes.verfication:
-        return _pageRoute(VerificationScreen());
-      case Routes.emailverification:
-        return _pageRoute(EmailVerificationPage());
+    
       case Routes.navigation:
         return _pageRoute(NavigationScreen());
       case Routes.messageNavigator:

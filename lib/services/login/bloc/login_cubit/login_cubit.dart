@@ -2,8 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sophie_messenger_app/routers/navigator.dart';
-import 'package:sophie_messenger_app/routers/routers.dart';
 import '../../../../core/validator.dart';
 import '../../../../handlers/shared_handler.dart';
 part 'login_state.dart';
@@ -51,23 +49,20 @@ class LoginCubit extends Cubit<LoginState> with Validations {
       // phoneNumber.data()!['phone']
       //  && isVerified.data()!['isVerified']=="true"
       if (validate()) {
-        Map<String, dynamic> data = {
-          "email": emailcontroller.text,
-          "password": passwordcontroller.text
-        };
+        // Map<String, dynamic> data = {
+        //   "email": emailcontroller.text,
+        //   "password": passwordcontroller.text
+        // };
 
        
         UserCredential user = await FirebaseAuth.instance
             .signInWithEmailAndPassword(
                 email: emailcontroller.text, password: passwordcontroller.text);
                 emit(LoginLoading());
-        SharedHandler.instance!.setData(SharedKeys().user, value: data);
-        SharedHandler.instance!.setData(SharedKeys().isLogin, value: true);
-        SharedHandler.instance!
-            .setData(SharedKeys().userEmail, value: emailcontroller.text);
-        // CustomNavigator.push(
-        //   Routes.navigation,
-        // );
+        // SharedHandler.instance!.setData(SharedKeys().user, value: data);
+        // SharedHandler.instance!.setData(SharedKeys().isLogin, value: true);
+        // SharedHandler.instance!
+        //     .setData(SharedKeys().userEmail, value: emailcontroller.text);
          
         emit(LoginSuccess());
       }
@@ -89,11 +84,6 @@ class LoginCubit extends Cubit<LoginState> with Validations {
     } catch (e) {
       emit(LoginFailure(errorMessage: 'There was an error please try again'));
     }
-    // on FirebaseAuthException catch (ex) {
-    //   emit(LoginFailure(
-    //       errorMessage: 'Something went wrong With Email Or Password'));
-    // } catch (e) {
-    //   emit(LoginFailure(errorMessage: 'Something went wrong'));
-    // }
+   
   }
 }

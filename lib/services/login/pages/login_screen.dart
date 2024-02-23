@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:sophie_messenger_app/base/blocs/social_auth/bloc/cubit/socialauth_cubit.dart';
+import 'package:sophie_messenger_app/base/blocs/social_auth/bloc/cubit/socialauth_state.dart';
+import 'package:sophie_messenger_app/handlers/icon_handler.dart';
 import 'package:sophie_messenger_app/routers/navigator.dart';
 import 'package:sophie_messenger_app/routers/routers.dart';
 import 'package:sophie_messenger_app/services/login/bloc/login_cubit/login_cubit.dart';
 import 'package:sophie_messenger_app/utilities/components/custom_btn.dart';
+import 'package:sophie_messenger_app/utilities/components/custom_social_button.dart';
 import 'package:sophie_messenger_app/utilities/components/fields/text_input_field.dart';
 import 'package:sophie_messenger_app/utilities/theme/media.dart';
 import 'package:sophie_messenger_app/utilities/theme/text_styles.dart';
@@ -21,8 +25,15 @@ bool isLoading = false;
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LoginCubit(),
+        ),
+        BlocProvider(
+          create: (context) => SocialauthCubit(),
+        ),
+      ],
       child: Scaffold(
         body: Container(
           width: double.infinity,
@@ -37,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             children: [
               Expanded(
-                flex: 1,
+                flex: 5,
                 child: SafeArea(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -69,6 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               Expanded(
+                flex: 6,
                 child: Container(
                   width: double.infinity,
 
@@ -95,7 +107,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       return ModalProgressHUD(
                         inAsyncCall: isLoading,
                         progressIndicator: CircularProgressIndicator(
-                          // Customize the color and size of the progress indicator
                           valueColor: AlwaysStoppedAnimation<Color>(
                               AppTextStyles.maincolor),
                           strokeWidth: 4.0,
@@ -181,28 +192,55 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ],
                                 ),
                               ),
-                              Text("OR",style: AppTextStyles.read,),
-
+                              Text(
+                                "OR",
+                                style: AppTextStyles.read,
+                              ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                  vertical: 10
-                                ),
+                                    horizontal: 20, vertical: 10),
                                 child: CustomBtn(
                                   onTap: () {
-                                     CustomNavigator.push(Routes.phone);
+                                    CustomNavigator.push(Routes.phone);
                                   },
                                   // onTap: () =>
                                   //     CustomNavigator.push(Routes.navigation), //will remove
                                   radius: 18,
                                   textColor: Colors.black,
 
-                                   border: Border.all(color: Colors.grey),
+                                  border: Border.all(color: Colors.grey),
                                   height: 48,
                                   text: "Continue With Phone",
                                   buttonColor: Colors.white,
                                 ),
                               ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20),
+                                child: BlocConsumer<SocialauthCubit,
+                                    SocialauthState>(
+                                  listener: (context, state) {},
+                                  builder: (context, state) {
+                                    var social =
+                                        context.read<SocialauthCubit>();
+
+                                    return CustomBtnSocial(
+
+                                      onTap: () {
+                                        social.signUpWithFacebook();
+                                      },
+                                      height: 48,
+                                      radius: 18,
+                                      buttonColor: Colors.white,
+                                      SocialIcon: drawSvgIconColored('facebook',
+                                          width: 20, height: 20),
+                                      text: 'Continue with Facebook',
+                                      textColor: Colors.black,
+                                      borderColor: HexColor('#D7D7D7'),
+                                    );
+                                  },
+                                ),
+                              )
                             ],
                           ),
                         ),

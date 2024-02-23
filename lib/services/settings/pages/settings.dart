@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -208,10 +209,39 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     title: 'Privacy',
                     ontap: () {},
                   ),
+                  ProfileOtherServices(
+                    leading: CircleAvatar(
+                      maxRadius: 18,
+                      backgroundColor: Colors.redAccent,
+                      child: Icon(
+                        Icons.exit_to_app,
+                        size: 24,
+                        color: Colors.white,
+                      ),
+                    ),
+                    trailing: Icon(
+                      Icons.logout,
+                      color: Colors.grey.shade500,
+                      size: 26,
+                    ),
+                    title: 'Log Out',
+                    ontap: () async {
+                      await FirebaseAuth.instance.signOut();
+                      Navigator.pop(context);
+                    },
+                  ),
                 ],
               ),
             ),
-          )
+          ),
+
+          // CustomBtn(
+          //   text: 'Log Out',
+          //   buttonColor: AppTextStyles.maincolor,
+          //   textColor: Colors.white,
+          //   radius: 20,
+          //   height: 56,
+          // )
         ],
       ),
     );

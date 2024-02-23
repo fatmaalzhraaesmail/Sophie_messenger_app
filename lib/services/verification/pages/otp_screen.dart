@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:sophie_messenger_app/routers/navigator.dart';
 import 'package:sophie_messenger_app/routers/routers.dart';
-import 'package:sophie_messenger_app/services/verification/bloc/phon_cubit.dart';
 import 'package:sophie_messenger_app/services/verification/bloc/phone_auth/phone_auth_cubit.dart';
 import 'package:sophie_messenger_app/services/verification/bloc/phone_auth/phone_auth_state.dart';
-import 'package:sophie_messenger_app/services/verification/bloc/verification_code_bloc.dart';
 import 'package:sophie_messenger_app/utilities/components/custom_btn.dart';
 import 'package:sophie_messenger_app/utilities/components/fields/pin_code_field.dart';
 import 'package:sophie_messenger_app/utilities/theme/text_styles.dart';
@@ -20,12 +17,7 @@ class OtpScreen extends StatelessWidget {
     // var bloc = context.read<VerifictionCodeBloc>();
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => VerifictionCodeBloc(),
-        ),
-        BlocProvider(
-          create: (context) => PhoneCubit(VerifictionCodeBloc()),
-        ),
+
         BlocProvider(
           create: (context) => PhoneAuthCubit(),
         ),
@@ -92,9 +84,8 @@ class OtpScreen extends StatelessWidget {
 
                     if (state is PhoneOTPVerified) {
                       CustomNavigator.pop();
-                      CustomNavigator.push(replace: true, Routes.navigation
+                      CustomNavigator.push(replace: true, Routes.continue_setup
                       );
-                      // Navigator.of(context).pushReplacementNamed(mapScreen);
                     }
 
                     if (state is ErrorOccurred) {
