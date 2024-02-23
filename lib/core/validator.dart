@@ -8,7 +8,6 @@ mixin Validations {
     }
     return "";
   }
-
   String isValidPassword(String password) {
     if (password.isEmpty) {
       return "Please Enter Password";
@@ -25,7 +24,7 @@ mixin Validations {
       return "Please Enter Your Phone Number";
     } else if (RegExp(r"^(?:[+0]9)?[0-9]{9}$").hasMatch(phone)) {
       print('validate');
-      return "Please Enter Phone Number Contain 11 Digits";
+      return "Please Enter Phone Number Contain 10 Digits";
     }
     return "";
   }
@@ -53,33 +52,6 @@ mixin Validations {
       return "Please Enter Your Name";
     } else if (name.length < 3) {
       return "Name should contain at Least 3 Letters";
-    }
-    return "";
-  }
-
-  String isValidCivilNumber(String civilNumber) {
-    if (civilNumber.isEmpty) {
-      return "الرجاء ادخال الرقم المدني";
-    } else if (civilNumber.length != 14) {
-      return "الرقم المدني يجب ان يتكون من 14 رقم";
-    }
-    return "";
-  }
-
-  String isCreditCardNumber(String creditNumber) {
-    if (creditNumber.isEmpty) {
-      return "الرجاء ادخال رقم البطاقة";
-    } else if (creditNumber.length != 16) {
-      return "رقم البطاقة يجب ان يتكون من 16 رقم";
-    }
-    return "";
-  }
-
-  String isValidCvvNumber(String cvvNumber) {
-    if (cvvNumber.isEmpty) {
-      return "الرجاء ادخال رقم السي في في";
-    } else if (cvvNumber.length != 3) {
-      return "رقم السي في في يجب ان يتكون من 3 ارقام";
     }
     return "";
   }

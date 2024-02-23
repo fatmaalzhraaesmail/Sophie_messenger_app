@@ -2,20 +2,25 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sophie_messenger_app/base/models/user_model.dart';
 import 'package:sophie_messenger_app/core/validator.dart';
 import 'package:sophie_messenger_app/handlers/shared_handler.dart';
 import 'package:sophie_messenger_app/services/verification/bloc/phone_auth/phone_auth_state.dart';
 
-class PhoneAuthCubit extends Cubit<PhoneAuthState> with Validations {
-  late String? verificationId;
+class PhoneAuthCubit extends Cubit<PhoneAuthState>  with Validations {
+   late String? verificationId;
   PhoneAuthCubit() : super(PhoneAuthInitial());
-
+  /////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////// Variables
+  /////////////////////////////////////////////////////////////
   TextEditingController codeContrryController = TextEditingController();
   TextEditingController PhoneNumberController = TextEditingController();
   TextEditingController codeController = TextEditingController();
   String phoneError = '';
   bool phoneIsValid = true;
-  // final FirebaseAuth _auth = FirebaseAuth.instance;
+  ////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////// Functions
+  ////////////////////////////////////////////////////////
   bool validate() {
     phoneError = isValidPhone(PhoneNumberController.text);
 
@@ -29,22 +34,7 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> with Validations {
 
     try {
       if (validate()) {
-        // Map<String, dynamic> data = {
-        //   "phone": PhoneNumberController.text,
-        // };
-        //add to firestore
         var phonee = codeContrryController.text + PhoneNumberController.text;
-        DocumentReference userRef = FirebaseFirestore.instance
-            .collection('users')
-            .doc(FirebaseAuth.instance.currentUser!.uid.toString());
-        await userRef.update({"phone": phonee}).then((value) {
-          print("Field updated successfully");
-        }).catchError((error) {
-          emit(PhoneFailure(errorMessege: 'Failed to add phone Try Again!'));
-          print("Failed to update field: $error");
-        });
-        //end
-
         await FirebaseAuth.instance.verifyPhoneNumber(
           phoneNumber: phonee,
           timeout: const Duration(seconds: 14),
@@ -73,7 +63,7 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> with Validations {
     emit(ErrorOccurred(errorMsg: error.toString()));
   }
 
-  void codeSent(String verificationId, int? resendToken) async {
+  void codeSent(String verificationId, int? resendToken) async{
     print('codeSent');
     await SharedHandler.instance!.setData("very", value: verificationId);
     print("verificationId: $verificationId");
@@ -94,85 +84,55 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> with Validations {
     await signIn(credential);
   }
 
+
   Future<void> signIn(PhoneAuthCredential credential) async {
     try {
       await FirebaseAuth.instance.signInWithCredential(credential);
-      final user = FirebaseAuth.instance.currentUser;
-      if (user != null) {
-        final userRef =
-            FirebaseFirestore.instance.collection('users').doc(user.uid);
+     User firebaseUser = FirebaseAuth.instance.currentUser!;
+       DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(firebaseUser.uid)
+        .get();
 
-        await userRef.update({"isVerified": true}).then((value) {
-          print("Field updated successfully");
+    if (userSnapshot.exists) {
+      // UserModel existingUser = UserModel.fromJson(userSnapshot.data()!);
+      
+      
 
-          // Introduce a delay of 1 second (adjust as needed)
-          const delayDuration = Duration(seconds: 1);
-          return Future.delayed(delayDuration);
-        }).then((_) {
-          // Check the Firestore document after the delay
-          userRef.get().then((documentSnapshot) {
-            if (documentSnapshot.exists) {
-              var isVerified = documentSnapshot.data()!['isVerified'];
-              print("isVerified: $isVerified");
-            } else {
-              print("Document does not exist");
-            }
-          }).catchError((error) {
-            print("Error retrieving document: $error");
-          });
-        }).catchError((error) {
-          emit(
-              verificationFailure(errorMessege: 'Failed to Verify Try Again!'));
-          print("Failed to update field: $error");
-        });
-      } else {
-        print("User is null");
-      }
-    } catch (error) {
-      emit(verificationFailure(
-          errorMessege: 'Failed to sign in with credential'));
-      print("Error signing in with credential: $error");
+    } else {
+      // User does not exist, create a new user data
+      UserModel newUser = UserModel(
+        name: 'User Name',
+        email: 'user@gmail.com',
+        gender: '',
+        phone: firebaseUser.phoneNumber,
+        image: '',
+        isVerified: true,
+      );
+
+      // Store the new user data in Firestore
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(firebaseUser.uid)
+          .set(newUser.toJson());
     }
-     emit(PhoneOTPVerified());
+    //  UserModel user = UserModel(
+    //   name: 'User Name', 
+    //   email: 'user@gmail.com',
+    //   gender: '',
+    //   phone:firebaseUser.phoneNumber, 
+    //   image: '',
+    //   isVerified: true, 
+    // );
+    //   await FirebaseFirestore.instance
+    //     .collection('users')
+    //     .doc(firebaseUser.uid)
+    //     .set(user.toJson());
+      emit(PhoneOTPVerified());
+    } catch (error) {
+      emit(ErrorOccurred(errorMsg: error.toString()));
+    }
   }
-//       DocumentReference userRef =await FirebaseFirestore.instance
-//           .collection('users')
-//           .doc(FirebaseAuth.instance.currentUser!.uid.toString());
-//   //     await userRef
-//   //         .set({"isVerified": true}, SetOptions(merge: true)).then((value) {
-//   //       print("Field updated successfully");
-//   //     }).catchError((error) {
-//   //       emit(verificationFailure(errorMessege: 'Failed to Verify Try Again!'));
-//   //       print("Failed to update field: $error");
-//   //     });
-
-//   await userRef.update({"isVerified": true}).then((value) {
-//   print("Field updated successfully");
-
-//   // Introduce a delay of 1 second (adjust as needed)
-//   const delayDuration = Duration(seconds: 1);
-//   return Future.delayed(delayDuration);
-// }).then((_) {
-//   // Check the Firestore document after the delay
-//   userRef.get().then((documentSnapshot) {
-//     if (documentSnapshot.exists) {
-//       var isVerified = documentSnapshot.data()['isVerified'];
-//       print("isVerified: $isVerified");
-//     } else {
-//       print("Document does not exist");
-//     }
-//   }).catchError((error) {
-//     print("Error retrieving document: $error");
-//   });
-// }).catchError((error) {
-//   emit(verificationFailure(errorMessege: 'Failed to Verify Try Again!'));
-//   print("Failed to update field: $error");
-// });
-
-  //   } catch (error) {
-  //     emit(ErrorOccurred(errorMsg: error.toString()));
-  //   }
-  //  }
 
   Future<void> logOut() async {
     await FirebaseAuth.instance.signOut();

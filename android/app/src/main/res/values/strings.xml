@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">sophie</string>
+<string name="facebook_app_id">1416641405949214</string>
+<string name="fb_login_protocol_scheme">fbec368317aefbf72d605582ed4f94232d</string>
+<string name="facebook_client_token">7fe40891ceb6d8c2e3ea887fdc4cecdf</string>
+
+</resources>

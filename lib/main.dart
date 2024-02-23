@@ -1,5 +1,7 @@
 // define _CRT_SECURE_NO_WARNINGS
 
+// ignore_for_file: deprecated_member_use
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -43,12 +45,9 @@ void main() async {
   FirebaseAuth.instance.authStateChanges().listen((user) {
     if (user == null) {
       initialRoute = Routes.login;
-    } else if (user != null && user.emailVerified) {
-      print("true");
-      initialRoute = Routes.navigation;
     } else {
       print("cdmkdszlnfkhdsbj");
-      initialRoute = Routes.login;
+      initialRoute = Routes.navigation;
     }
   });
   runApp(MyApp());

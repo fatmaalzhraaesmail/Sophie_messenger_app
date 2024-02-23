@@ -243,8 +243,7 @@ class _PhoneState extends State<Phone> {
                 Navigator.pop(context);
                 CustomNavigator.push(
                     replace: true, Routes.otp, arguments: phoneNumber);
-                // Navigator.of(context)
-                //     .pushNamed(otpScreen, arguments: phoneNumber);
+             
               }
 
               if (state is ErrorOccurred) {
